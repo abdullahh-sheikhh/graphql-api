@@ -18,9 +18,6 @@ const { url } = await startStandaloneServer(server, {
     return { user };
   },
   listen: { port: port },
-  cors: {
-    methods: 'GET, POST',
-  },
 });
 
 console.log(`listening on port ${port}`);
