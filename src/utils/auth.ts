@@ -3,8 +3,9 @@ import jwt from 'jsonwebtoken';
 const JWT_SECRET = 'jwt_secret';
 
 export const generateToken = (user) => {
-  const payload = { userID: user.ID, role: user.role };
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '60m' });
+  return jwt.sign({ id: user.ID, role: user.role }, JWT_SECRET, {
+    expiresIn: '60m',
+  });
 };
 
 export const verifyToken = (token) => {

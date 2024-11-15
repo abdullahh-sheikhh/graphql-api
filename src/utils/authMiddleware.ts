@@ -1,7 +1,6 @@
-import { verifyToken } from './auth.js';
+import { verifyToken } from './auth.ts';
 
-export const authenticate = (req) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+export const authenticate = (token) => {
   if (token) {
     return verifyToken(token);
   }
@@ -9,7 +8,7 @@ export const authenticate = (req) => {
 };
 
 export const getRole = (required) => (req) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+  const token = req.headers['Authorization']?.split(' ')[1];
   if (!token) {
     throw new Error('token is null');
   }

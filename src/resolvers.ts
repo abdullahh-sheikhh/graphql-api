@@ -1,5 +1,6 @@
-import { employees } from './data.js';
-import { getRole } from './utils/authMiddleware.js';
+import { employees } from './data.ts';
+import { verifyToken } from './utils/auth.ts';
+import { getRole } from './utils/authMiddleware.ts';
 
 export const resolvers = {
   Query: {
@@ -15,11 +16,13 @@ export const resolvers = {
         sortBy = 'name',
         sortOrder = 'asc',
       },
-      req
+      context: any
     ) => {
-      let filteredEmployees = employees;
+      const token = context.headers.authorization.split(' ')[1];
+      const decodedToken = verifyToken(token);
+      const 
 
-      getRole('admin')(req);
+      let filteredEmployees = employees;
 
       if (name) {
         filteredEmployees = filteredEmployees.filter((employee) =>
@@ -67,7 +70,7 @@ export const resolvers = {
   Mutation: {
     addEmployee: (_, { name, age, department, position, attendance }, req) => {
       getRole('admin')(req);
-      const newID = (employees.length + 1).toString(); // Simple ID generation
+      const newID = Number((employees.length + 1).toString()); // Simple ID generation
       const newEmployee = {
         ID: newID,
         name,

@@ -1,4 +1,9 @@
 export const typeDefs = `#graphql
+  type User {
+    ID: ID!
+    name: String!
+  },
+
   type Employee {
     ID: Int,
     name: String,
@@ -9,6 +14,8 @@ export const typeDefs = `#graphql
   },
 
   type Query {
+    user(ID:ID!): User,
+
     employees(
       name: String,
       department: String,
